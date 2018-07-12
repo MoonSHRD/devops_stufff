@@ -1,0 +1,56 @@
+version: '2'
+services:
+  xmpp:
+    image: ioloryn/jackal
+    container_name: xmpp
+      environment:
+        MYSQL_HOST=127.0.0.1
+        MYSQL_PORT=3306
+        MYSQL_USER=user
+        MYSQL_PASS=pass
+  
+  haproxy:
+    image: ioloryn/haproxy
+    container_name:haproxy
+    
+  db_master:
+    image: jamiejackson/mariadb-replication:10.2
+    container_name: db_master
+    ports:
+      - "3307:3306"
+    restart: unless-stopped
+    environment:
+      #- MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
+  db_slave1:
+    image: jamiejackson/mariadb-replication:10.2
+    container_name: db_slave1
+    depends_on:
+      - "db_master"
+    ports: 
+     - "3308:3306"
+    links:
+      - db_master:master
+    restart: unless-stopped
+    environment:
+      #- MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MASTER_HOST=master
+      - MASTER_PORT=3306
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
+  db_slave2:
+    image: jamiejackson/mariadb-replication:10.2
+    container_name: db_slave2
+    depends_on:
+      - "db_master"
+    ports: 
+     - "3309:3306"
+    links:
+      - db_master:master
+    restart: unless-stopped
+    environment:
+      #- MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MASTER_HOST=master
+      - MASTER_PORT=3306
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
