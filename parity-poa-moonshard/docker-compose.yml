@@ -1,0 +1,117 @@
+version: '2.1'
+services:
+  authority0:
+    image: parity/parity:${PARITY_VERSION}
+    command:
+      --base-path /parity/data
+      --config /parity/config/authority.toml
+      --engine-signer 0x00bd138abd70e2f00903268f3db08f2d25677c9e
+      --jsonrpc-cors all
+      --fat-db on
+      --tracing on
+      --pruning archive
+    volumes:
+      - ./parity/config:/parity/config:ro
+      - ./parity/data/authority0:/parity/data/
+      - ./parity/authorities/authority0.json:/parity/data/keys/${NETWORK_NAME}/authority.json:ro
+      - ./parity/keys:/parity/data/keys/${NETWORK_NAME}
+      - ./parity/authorities/authority0.pwd:/parity/authority.pwd:ro
+      - ./parity/node0.network.key:/parity/data/network/key:ro
+    user: ${PARITY_USER_ID}
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.10
+
+
+  authority1:
+    image: parity/parity:${PARITY_VERSION}
+    command:
+      --base-path /parity/data
+      --config /parity/config/authority.toml
+      --engine-signer 0x00aa39d30f0d20ff03a22ccfc30b7efbfca597c2
+    volumes:
+      - ./parity/config:/parity/config:ro
+      - ./parity/data/authority1:/parity/data
+      - ./parity/authorities/authority1.json:/parity/data/keys/${NETWORK_NAME}/authority.json:ro
+      - ./parity/authorities/authority1.pwd:/parity/authority.pwd:ro
+      - ./parity/node1.network.key:/parity/data/network/key:ro
+    user: ${PARITY_USER_ID}
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.11
+
+
+  authority2:
+    image: parity/parity:${PARITY_VERSION}
+    command:
+      --base-path /parity/data
+      --config /parity/config/authority.toml
+      --engine-signer 0x002e28950558fbede1a9675cb113f0bd20912019
+    volumes:
+      - ./parity/config:/parity/config:ro
+      - ./parity/data/authority2:/parity/data
+      - ./parity/authorities/authority2.json:/parity/data/keys/${NETWORK_NAME}/authority.json:ro
+      - ./parity/authorities/authority2.pwd:/parity/authority.pwd:ro
+      - ./parity/node2.network.key:/parity/data/network/key:ro
+    user: ${PARITY_USER_ID}
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.12
+
+  member0:
+    image: parity/parity:${PARITY_VERSION}
+    command:
+      --base-path /parity/data
+      --config /parity/config/member.toml
+      --jsonrpc-interface 0.0.0.0
+      --ws-interface 0.0.0.0
+      --unsafe-expose
+    volumes:
+      - ./parity/config:/parity/config:ro
+      - ./parity/data/member0:/parity/data
+      - ./parity/keys:/parity/data/keys/${NETWORK_NAME}
+    ports:
+      - 30303:30303
+      - 8545:8545
+      - 8546:8546
+    user: ${PARITY_USER_ID}
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.20
+
+
+  monitor:
+    image: buythewhale/ethstats_monitor
+    volumes:
+      - ./monitor/app.json:/home/ethnetintel/eth-net-intelligence-api/app.json:ro
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.100
+
+
+  dashboard:
+    image: buythewhale/ethstats
+    volumes:
+      - ./dashboard/ws_secret.json:/eth-netstats/ws_secret.json:ro
+    ports:
+      - 3001:3000
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.200
+
+  etherchain-light:
+    volumes:
+     - ./parity/data/authority0/jsonrpc.ipc:/etherchain-light/jsonrpc.ipc
+    build: etherchain-light/.
+    restart: always
+    ports:
+     - 3000:3000
+
+networks:
+  app_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.0.1/24
+        gateway: 172.16.0.1
