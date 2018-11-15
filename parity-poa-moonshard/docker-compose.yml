@@ -14,8 +14,8 @@ services:
     volumes:
       - ./parity/config:/parity/config:ro
       - ./parity/data/authority0:/parity/data/
-      - ./parity/authorities/authority0.json:/parity/data/keys/${NETWORK_NAME}/authority.json:ro
-      - ./parity/keys:/parity/data/keys/${NETWORK_NAME}
+      - ./parity/authorities/authority0.json:/parity/data/keys/parity-poa-moonshard/authority.json:ro
+      - ./parity/keys:/parity/data/keys/parity-poa-moonshard
       - ./parity/authorities/authority0.pwd:/parity/authority.pwd:ro
       - ./parity/node0.network.key:/parity/data/network/key:ro
     user: ${PARITY_USER_ID}
@@ -33,7 +33,7 @@ services:
     volumes:
       - ./parity/config:/parity/config:ro
       - ./parity/data/authority1:/parity/data
-      - ./parity/authorities/authority1.json:/parity/data/keys/${NETWORK_NAME}/authority.json:ro
+      - ./parity/authorities/authority1.json:/parity/data/keys/parity-poa-moonshard/authority.json:ro
       - ./parity/authorities/authority1.pwd:/parity/authority.pwd:ro
       - ./parity/node1.network.key:/parity/data/network/key:ro
     user: ${PARITY_USER_ID}
@@ -51,7 +51,7 @@ services:
     volumes:
       - ./parity/config:/parity/config:ro
       - ./parity/data/authority2:/parity/data
-      - ./parity/authorities/authority2.json:/parity/data/keys/${NETWORK_NAME}/authority.json:ro
+      - ./parity/authorities/authority2.json:/parity/data/keys/parity-poa-moonshard/authority.json:ro
       - ./parity/authorities/authority2.pwd:/parity/authority.pwd:ro
       - ./parity/node2.network.key:/parity/data/network/key:ro
     user: ${PARITY_USER_ID}
@@ -70,7 +70,7 @@ services:
     volumes:
       - ./parity/config:/parity/config:ro
       - ./parity/data/member0:/parity/data
-      - ./parity/keys:/parity/data/keys/${NETWORK_NAME}
+      - ./parity/keys:/parity/data/keys/parity-poa-moonshard
     ports:
       - 30303:30303
       - 8545:8545

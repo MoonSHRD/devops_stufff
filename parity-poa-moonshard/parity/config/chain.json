@@ -1,5 +1,5 @@
 {
-  "name": "parity-poa-playground",
+  "name": "parity-poa-moonshard",
   "engine": {
     "authorityRound": {
       "params": {
