@@ -5,11 +5,12 @@ services:
     command:
       --base-path /parity/data
       --config /parity/config/authority.toml
-      --engine-signer 0x00bd138abd70e2f00903268f3db08f2d25677c9e
+      --engine-signer ${AUTHORITY0_SIGNER_ACC}
       --jsonrpc-cors all
       --fat-db on
       --tracing on
       --pruning archive
+      --jsonrpc-interface 172.16.0.10
     volumes:
       - ./parity/config:/parity/config:ro
       - ./parity/data/authority0:/parity/data/
@@ -28,7 +29,7 @@ services:
     command:
       --base-path /parity/data
       --config /parity/config/authority.toml
-      --engine-signer 0x00aa39d30f0d20ff03a22ccfc30b7efbfca597c2
+      --engine-signer ${AUTHORITY1_SIGNER_ACC}
     volumes:
       - ./parity/config:/parity/config:ro
       - ./parity/data/authority1:/parity/data
@@ -46,7 +47,7 @@ services:
     command:
       --base-path /parity/data
       --config /parity/config/authority.toml
-      --engine-signer 0x002e28950558fbede1a9675cb113f0bd20912019
+      --engine-signer ${AUTHORITY2_SIGNER_ACC}
     volumes:
       - ./parity/config:/parity/config:ro
       - ./parity/data/authority2:/parity/data
@@ -99,13 +100,16 @@ services:
       app_net:
         ipv4_address: 172.16.0.200
 
-  etherchain-light:
+  blockexplorer:
     volumes:
-     - ./parity/data/authority0/jsonrpc.ipc:/etherchain-light/jsonrpc.ipc
-    build: etherchain-light/.
+     - ./blockexplorer/config.js:/usr/src/app/config.js
+    build: blockexplorer/etherchain-light/.
     restart: always
     ports:
      - 3000:3000
+    networks:
+      app_net:
+        ipv4_address: 172.16.0.201
 
 networks:
   app_net:
