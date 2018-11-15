@@ -1,0 +1,3 @@
+[submodule "parity-poa-moonshard/blockexplorer/etherchain-light"]
+	path = parity-poa-moonshard/blockexplorer/etherchain-light
+	url = https://github.com/gobitfly/etherchain-light.git
