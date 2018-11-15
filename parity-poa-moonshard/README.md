@@ -3,11 +3,14 @@
 Внимание! В репозитории находится куча приватных ключей, которые можно использовать для тестирования!
 Скелет взят из [этого репозитория](https://github.com/orbita-center/parity-poa-playground), все эти приватные ключи также лежат там.
 Конфигурация сети лежит в `parity/config/chain.json`, приватные ключи к аккаунтам лежат в `parity/keys/`, эти аккаунты можно использовать как авторити-аккаунты и указывать в переменных AUTHORITY*_SIGNER_ACC.
+В конфиге сети сейчас указаны:
+ - AUTHORITY0_SIGNER_ACC=0x00bd138abd70e2f00903268f3db08f2d25677c9e
+ - AUTHORITY1_SIGNER_ACC=0x00aa39d30f0d20ff03a22ccfc30b7efbfca597c2
+ - AUTHORITY2_SIGNER_ACC=0x002e28950558fbede1a9675cb113f0bd20912019
+Позднее будут стабильные скрипты генерации ключей и аккаунтов.
 
 ## Состав:
-- [Parity](https://github.com/paritytech/parity-ethereum) ноды
-  - Три Authority-ноды
-  - Одна member-нода
+- [Parity](https://github.com/paritytech/parity-ethereum): Три Authority-ноды, одна Member-нода.
 - Монитор и дэшборд для Ethereum-сети [eth-netstats](https://github.com/cubedro/eth-netstats)
 - Блок-эксплорер [Etherchain-light](https://github.com/paritytech/etherchain-light)
 
