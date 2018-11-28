@@ -17,7 +17,7 @@
 ## Сборка:
 0. Установите Docker и Docker-Compose.
 1. Создайте Linux-юзера `parity` в системе для запуска нод: `useradd -M parity`
-2. Смените владельца текущей директории: `chown parity:parity . -R`
+2. Смените владельца директории данных parity: `chown parity:parity parity -R`
 3. Создайте файл переменных `.env`, формата VARIABLE_NAME=VARIABLE_VALUE, по одной на строку, со следующими переменными:
   - `PARITY_VERSION` - укажите "stable" для последней стабильной, или гитхаб-тэг формата "v2.0.6" из [репозитория Parity](https://github.com/paritytech/parity-ethereum)
   - `PARITY_USER_ID` - укажите UID созданного Linux-юзера, команда `id -u parity`

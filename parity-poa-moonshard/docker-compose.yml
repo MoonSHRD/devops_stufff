@@ -2,6 +2,7 @@ version: '2.1'
 services:
   authority0:
     image: parity/parity:${PARITY_VERSION}
+    entrypoint: /home/parity/bin/parity
     command:
       --base-path /parity/data
       --config /parity/config/authority.toml
@@ -26,6 +27,7 @@ services:
 
   authority1:
     image: parity/parity:${PARITY_VERSION}
+    entrypoint: /home/parity/bin/parity
     command:
       --base-path /parity/data
       --config /parity/config/authority.toml
@@ -44,6 +46,7 @@ services:
 
   authority2:
     image: parity/parity:${PARITY_VERSION}
+    entrypoint: /home/parity/bin/parity
     command:
       --base-path /parity/data
       --config /parity/config/authority.toml
@@ -61,6 +64,7 @@ services:
 
   member0:
     image: parity/parity:${PARITY_VERSION}
+    entrypoint: /home/parity/bin/parity
     command:
       --base-path /parity/data
       --config /parity/config/member.toml
