@@ -1,3 +1,12 @@
 [submodule "parity-poa-moonshard/blockexplorer/etherchain-light"]
 	path = parity-poa-moonshard/blockexplorer/etherchain-light
 	url = https://github.com/gobitfly/etherchain-light.git
+[submodule "moonshard_backend/grpc_service"]
+	path = moonshard_backend/grpc_service
+	url = https://github.com/MoonSHRD/grpc_service
+[submodule "moonshard_backend/parity_etl_producer"]
+	path = moonshard_backend/parity_etl_producer
+	url = https://github.com/MoonSHRD/parity_etl_producer
+[submodule "moonshard_backend/middleware"]
+	path = moonshard_backend/middleware
+	url = https://github.com/MoonSHRD/middleware
