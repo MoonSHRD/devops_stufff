@@ -1,2 +1,4 @@
 parity-poa-moonshard/.env
 parity-poa-moonshard/parity/data
+moonshard_backend/mongo/data
+moonshard_backend/centrifugo/config.json
