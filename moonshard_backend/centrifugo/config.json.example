@@ -1,0 +1,31 @@
+{
+  "api_key": "SomeAPIKey",
+  "secret": "SomeSecret",
+  "admin_password": "SomePassword",
+  "admin_secret": "SomeAdminSecret",
+  "presence": true,
+  "namespaces": [
+    {
+      "name": "chat",
+      "anonymous": false,
+      "publish": true,
+      "join_leave": true,
+      "presence": true,
+      "presence_stats": true,
+      "history_size": 10,
+      "history_lifetime": 60,
+      "history_recover": true
+    },
+    {
+      "name": "public",
+      "anonymous": true,
+      "publish": true,
+      "join_leave": true,
+      "presence": true,
+      "presence_stats": true,
+      "history_size": 10,
+      "history_lifetime": 60,
+      "history_recover": true
+    }  
+  ]
+}

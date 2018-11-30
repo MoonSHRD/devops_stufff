@@ -1,0 +1,59 @@
+version: '2.1'
+services:
+  mongo:
+    image: mongo
+    restart: always
+
+    networks:
+      moonshard_backend_net:
+        ipv4_address: 172.16.24.10
+
+  centrifugo:
+    image: centrifugo/centrifugo
+    entrypoint: centrifugo -c /centrifugo/config.json
+    volumes:
+      - ./centrifugo/config.json:/centrifugo/config.json
+    ulimits:
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - 8000:8000
+    networks:
+      moonshard_backend_net:
+        ipv4_address: 172.16.24.11
+  
+  grpc_service:
+    entrypoint: go_server
+    build: grpc_service/.
+    restart: always
+    ports:
+      - 50051:50051
+    depends_on:
+      - mongo
+    networks:
+      moonshard_backend_net:
+        ipv4_address: 172.16.24.50
+
+  middleware:
+    build: middleware/.
+    entrypoint: middleware -c /centrifugo/config.json
+    restart: always
+    depends_on:
+     - centrifugo
+    volumes:
+     - ./centrifugo/config.json:/centrifugo/config.json
+    ports:
+     - 8080:8080
+    networks:
+      moonshard_backend_net:
+        ipv4_address: 172.16.24.51
+
+networks:
+  moonshard_backend_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.24.1/24
+          gateway: 172.16.24.1
